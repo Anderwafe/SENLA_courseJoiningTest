@@ -1,0 +1,25 @@
+temperature:20
+humidity:29
+water amount: 500000
+animals:
+1. name: Тигр, species: carnivore, food chain level: tertiary, energy: 80, average lifespan: 87600 hours, age: 43800 hours, quantity: 3
+2. name: Волк, species: carnivore, food chain level: secondary, energy: 80, average lifespan: 122640 hours, age: 52560 hours, quantity: 15
+3. name: Сова, species: carnivore, food chain level: primary, energy: 80, average lifespan: 87600 hours, age: 35040 hours, quantity: 10
+4. name: Лиса, species: omnivore, food chain level: secondary, energy: 80, average lifespan: 35040 hours, age: 17520 hours, quantity: 10
+5. name: Медведь, species: omnivore, food chain level: tertiary, energy: 80, average lifespan: 175200 hours, age: 96360 hours, quantity: 3
+6. name: Кабан, species: omnivore, food chain level: secondary, energy: 80, average lifespan: 122640 hours, age: 70080 hours, quantity: 7
+7. name: Воробей, species: omnivore, food chain level: primary, energy: 80, average lifespan: 26280 hours, age: 8760 hours, quantity: 10
+8. name: Косуля, species: omnivore, food chain level: primary, energy: 80, average lifespan: 87600 hours, age: 35040 hours, quantity: 10
+9. name: Олень, species: herbivore, food chain level: secondary, energy: 80, average lifespan: 175200 hours, age: 70080 hours, quantity: 10
+10. name: Кролик, species: herbivore, food chain level: primary, energy: 80, average lifespan: 78840 hours, age: 35040 hours, quantity: 15
+11. name: Свинья, species: herbivore, food chain level: secondary, energy: 80, average lifespan: 131400 hours, age: 70080 hours, quantity: 10
+12. name: Коза, species: herbivore, food chain level: secondary, energy: 80, average lifespan: 131400 hours, age: 61320 hours, quantity: 5
+plants:
+1. name: Папоротник, growth level: 4, water needs: 1 per day, optimal temperature: 15 degrees, quantity: 60
+2. name: Трава, growth level: 3, water needs: 1 per day, optimal temperature: 16 degrees, quantity: 80
+3. name: Ёлка, growth level: 7, water needs: 3 per day, optimal temperature: 13 degrees, quantity: 40
+4. name: Куст, growth level: 9, water needs: 2 per day, optimal temperature: 13 degrees, quantity: 60
+5. name: Осина, growth level: 6, water needs: 3 per day, optimal temperature: 17 degrees, quantity: 47
+6. name: Шиповник, growth level: 6, water needs: 2 per day, optimal temperature: 17 degrees, quantity: 48
+7. name: Гриб, growth level: 7, water needs: 1 per day, optimal temperature: 14 degrees, quantity: 40
+8. name: Цветок, growth level: 7, water needs: 1 per day, optimal temperature: 18 degrees, quantity: 40
