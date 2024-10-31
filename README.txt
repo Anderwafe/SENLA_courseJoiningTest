@@ -8,7 +8,7 @@ Users can add animals and plants, adjust environmental parameters, and simulate 
 
 
 ## Features
-- Create and Load Ecosystems(saved ecosystems located in project_folder\savedEcosystems): Easily create a new ecosystem from scratch or load an existing one from a file.
+- Create and Load Ecosystems (saved ecosystems located in project_folder\savedEcosystems): Easily create a new ecosystem from scratch or load an existing one from a file.
 
 - Dynamic Ecosystem Management: Interact with various aspects of the ecosystem, including:
     -Adding animals and plants
@@ -23,7 +23,7 @@ Users can add animals and plants, adjust environmental parameters, and simulate 
 
 - Population Predictions: Use the prediction feature to estimate changes in population dynamics within the ecosystem.
 
-- Log Management: Clear and maintain log files for tracking simulation events and outcomes.
+- Log Management (log file located in project_folder\log.txt): Clear and maintain log files for tracking simulation events and outcomes.
 
 - User-Friendly Interface: Navigate through menus with clear options for managing your ecosystem and running simulations.
 
