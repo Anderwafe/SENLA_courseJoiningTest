@@ -8,11 +8,11 @@ import java.util.List;
 public class Ecosystem {
     private final SecureRandom secureRandom = new SecureRandom();
 
-    private List<Animal> animals;      // Список животных
-    private List<Plant> plants;        // Список растений
-    private int temperature;            // Температура в экосистеме
-    private int humidity;               // Влажность в экосистеме
-    private int waterAmount;            // Количество доступной воды
+    private List<Animal> animals;
+    private List<Plant> plants;
+    private int temperature;
+    private int humidity;
+    private int waterAmount;
 
     public Ecosystem(int temperature, int humidity, int waterAmount, List<Animal> animals, List<Plant> plants) {
         this.animals = animals;
@@ -22,14 +22,6 @@ public class Ecosystem {
         this.waterAmount = waterAmount;
     }
 
-
-    public void addAnimal(Animal animal){
-        animals.add(animal);
-    }
-
-    public void addPlant(Plant plant){
-        plants.add(plant);
-    }
 
     public int getTemperature() {
         return temperature;
