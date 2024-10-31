@@ -21,7 +21,7 @@ public class ObjectsCreator {
                 "tertiary", 3
         );
 
-        System.out.println("Enter the name of the animal: ");
+        System.out.print("Enter the name of the animal: ");
         String name = scanner.next();
 
         String species = UserInput.getValidStringInput(scanner, "Enter species (Herbivore/Carnivore/Omnivore): ",
@@ -61,7 +61,7 @@ public class ObjectsCreator {
     public static List<Plant> createPlant(Scanner scanner) {
         List<Plant> createdPlants = new ArrayList<>();
 
-        System.out.println("Enter the name of the plant: ");
+        System.out.print("Enter the name of the plant: ");
         String name = scanner.next();
 
         int growthLevel = UserInput.getValidIntInput("Enter growth level (number from 0 to 18):", 0, 18);
