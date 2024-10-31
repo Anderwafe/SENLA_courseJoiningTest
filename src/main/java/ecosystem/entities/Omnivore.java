@@ -11,7 +11,11 @@ public class Omnivore extends Animal {
 
     public Omnivore(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         super(name, energy, foodChainLevel, lifeTime, currentLifeTime);
-
+        this.waterNeeds = switch (foodChainLevel){
+            case 1,2 -> 15;
+            case 3 -> 30;
+            default -> 0; // This should never happen
+        };
     }
 
     /**
@@ -24,7 +28,12 @@ public class Omnivore extends Animal {
     @Override
     public void act(Ecosystem ecosystem) {
         SecureRandom secureRandom = new SecureRandom();
+
         setCurrentLifeTime(getCurrentLifeTime() + 24);
+
+        if(ecosystem.getWaterAmount() < waterNeeds){
+            energy -= 30;
+        }else ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
 
         double probability = switch (foodChainLevel) {
             case 1 -> 0.3;

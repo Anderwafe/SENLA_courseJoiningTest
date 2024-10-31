@@ -9,6 +9,7 @@ public abstract class Animal {
     protected int lifeTime;
     protected int currentLifeTime;
     protected boolean isEaten;
+    protected int waterNeeds;
 
     public Animal(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         this.name = name;

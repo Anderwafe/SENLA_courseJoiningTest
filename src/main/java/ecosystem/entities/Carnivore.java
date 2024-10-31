@@ -11,6 +11,12 @@ public class Carnivore extends Animal {
 
     public Carnivore(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         super(name, energy, foodChainLevel, lifeTime, currentLifeTime);
+        this.waterNeeds = switch (foodChainLevel){
+            case 1 -> 20;
+            case 2 -> 25;
+            case 3 -> 30;
+            default -> 0; // This should never happen
+        };
     }
 
     /**
@@ -23,6 +29,11 @@ public class Carnivore extends Animal {
     @Override
     public void act(Ecosystem ecosystem) {
         setCurrentLifeTime(getCurrentLifeTime() + 24);
+
+        if(ecosystem.getWaterAmount() < waterNeeds){
+            energy -= 30;
+        }else ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
+
         if(energy < 100){
             LogFormer.writeLogFile(getName() + " исследует территорию в поисках пищи.");
             huntAnimals(ecosystem);

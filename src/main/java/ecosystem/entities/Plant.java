@@ -71,6 +71,7 @@ public class Plant {
                 LogFormer.writeLogFile(name + " растет медленнее из-за температуры.");
             } else {
                 // Temperature is too unfavorable - the plant does not grow
+                ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
                 LogFormer.writeLogFile(name + " не растет из-за неблагоприятной температуры.");
             }
         } else {
