@@ -31,6 +31,11 @@ Users can add animals and plants, adjust environmental parameters, and simulate 
 
 
 ## Usage
+Running the Program
+To run the Ecosystem Simulator, you can use one of the provided script files depending on your operating system:
+- EcosystemSimulator_Run.bat for Windows
+- EcosystemSimulator_Run.sh for macOS or Linux
+
 Once the program is running, you will be presented with a menu where you can choose to:
 - Create ecosystem
 - Load ecosystem
