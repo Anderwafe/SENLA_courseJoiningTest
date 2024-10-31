@@ -13,16 +13,15 @@ public class Herbivore extends Animal {
     public Herbivore(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         super(name, energy, foodChainLevel, lifeTime, currentLifeTime);
         this.waterNeeds = switch (foodChainLevel){
-            case 1 -> 10;
-            case 2 -> 19;
-            case 3 -> 25;
+            case 1 -> 4;
+            case 2, 3 -> 5;
             default -> 0; // This should never happen
         };
     }
 
     /**
      * Executes the animal's daily actions within the ecosystem, including aging, energy expenditure,
-     * and eating plants if energy levels are low.
+     * search for water, and eating plants if energy levels are low.
      *
      * @param ecosystem The ecosystem in which the animal acts, providing access to other animals
      *                  for potential hunting.
@@ -32,11 +31,12 @@ public class Herbivore extends Animal {
         setCurrentLifeTime(getCurrentLifeTime() + 24);
 
         if(ecosystem.getWaterAmount() < waterNeeds){
-            energy -= 30;
+            LogFormer.writeLogFile(getName() + " cannot find water.");
+            energy -= 5;
         }else ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
 
         if(energy < 100){
-            LogFormer.writeLogFile(getName() + " исследует территорию в поисках пищи.");
+            LogFormer.writeLogFile(getName() + " explores the area in search of food.");
             eatPlant(ecosystem);
         }else energy -= 5;
 
@@ -51,7 +51,7 @@ public class Herbivore extends Animal {
 
         // Check if there are any available plants
         if (ecosystem.getPlants().isEmpty()) {
-            LogFormer.writeLogFile(getName() + " не может найти растения для питания.");
+            LogFormer.writeLogFile(getName() + " cannot find plants for food.");
             energy -= 5;
             return;
         }
@@ -59,7 +59,7 @@ public class Herbivore extends Animal {
         // Count the number of uneaten plants
         long countCanBeEaten = ecosystem.getPlants().stream().filter(plant -> !plant.isEaten()).count();
         if(countCanBeEaten == 0) {
-            LogFormer.writeLogFile(getName() + " не может найти растения для питания.");
+            LogFormer.writeLogFile(getName() + " cannot find plants for food.");
             energy -= 5;
             return;
         }
@@ -73,9 +73,9 @@ public class Herbivore extends Animal {
         }
 
         // Log the plant being eaten and update its state
-        LogFormer.writeLogFile(getName() + " питается растением: " + ecosystem.getPlants().get(plantNumber).getName());
+        LogFormer.writeLogFile(getName() + " feeds on the plant " + ecosystem.getPlants().get(plantNumber).getName());
         ecosystem.getPlants().get(plantNumber).setEaten(true);
-        energy += 60;
+        energy += 65;
     }
 
     /**
@@ -103,7 +103,7 @@ public class Herbivore extends Animal {
             if (countSameSpecies >= 2) {
                 int energyCost = getEnergyCost(getFoodChainLevel());
                 energy -= energyCost;
-                return new Herbivore(getName(), 60, getFoodChainLevel(), getLifeTime(), 0);
+                return new Herbivore(getName(), 70, getFoodChainLevel(), getLifeTime(), 0);
             }
         }
         return null;
@@ -118,8 +118,8 @@ public class Herbivore extends Animal {
     private double getReproduceChance(int foodChainLevel){
         return switch (foodChainLevel){
             case 1 -> 0.4;
-            case 2 -> 0.55;
-            case 3 -> 0.65;
+            case 2 -> 0.45;
+            case 3 -> 0.55;
             default -> 0; // No chance for invalid levels
         };
     }

@@ -12,15 +12,15 @@ public class Omnivore extends Animal {
     public Omnivore(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         super(name, energy, foodChainLevel, lifeTime, currentLifeTime);
         this.waterNeeds = switch (foodChainLevel){
-            case 1,2 -> 15;
-            case 3 -> 30;
+            case 1,2 -> 4;
+            case 3 -> 6;
             default -> 0; // This should never happen
         };
     }
 
     /**
      * Executes the animal's daily actions within the ecosystem, including aging, energy expenditure,
-     * and hunting or eating plants if energy levels are low.
+     * search for water, and hunting or eating plants if energy levels are low.
      *
      * @param ecosystem The ecosystem in which the animal acts, providing access to other animals
      *                  for potential hunting.
@@ -32,7 +32,8 @@ public class Omnivore extends Animal {
         setCurrentLifeTime(getCurrentLifeTime() + 24);
 
         if(ecosystem.getWaterAmount() < waterNeeds){
-            energy -= 30;
+            LogFormer.writeLogFile(getName() + " cannot find water.");
+            energy -= 10;
         }else ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
 
         double probability = switch (foodChainLevel) {
@@ -42,7 +43,7 @@ public class Omnivore extends Animal {
             default -> 0.5; // Default case for safety
         };
         if(energy < 100){
-            LogFormer.writeLogFile(getName() + " исследует территорию в поисках пищи.");
+            LogFormer.writeLogFile(getName() + " explores the area in search of food.");
             if (secureRandom.nextDouble() > probability) {
                 eatPlant(ecosystem);
             } else {
@@ -68,7 +69,7 @@ public class Omnivore extends Animal {
 
         // If no prey is available, log a message and reduce energy
         if (countCanBeHunted == 0) {
-            LogFormer.writeLogFile("Охота прошла неудачно (не на кого охотиться)");
+            LogFormer.writeLogFile("The hunt was unsuccessful (no prey available).");
             energy -= 15;
             return;
         }
@@ -85,12 +86,12 @@ public class Omnivore extends Animal {
         // Attempt to hunt the selected target, and log the result
         int energyGain = getEnergyGain(foodChainLevel);
         if (secureRandom.nextDouble() > 0.2) { // 80% success rate for hunting
-            LogFormer.writeLogFile(getName() + " успешно охотится на " + ecosystem.getAnimals().get(animalNumber).getName());
+            LogFormer.writeLogFile(getName() + " successfully hunts for " + ecosystem.getAnimals().get(animalNumber).getName());
             ecosystem.getAnimals().get(animalNumber).setEaten(true);
             energy += energyGain;
 
         } else {
-            LogFormer.writeLogFile("Охота прошла неудачно (цель охоты убежала)");
+            LogFormer.writeLogFile("The hunt was unsuccessful (the prey escaped).");
             energy -= 10;
         }
     }
@@ -106,7 +107,7 @@ public class Omnivore extends Animal {
 
         // Check if there are any available plants
         if (ecosystem.getPlants().isEmpty()) {
-            LogFormer.writeLogFile(getName() + " не может найти растения для питания.");
+            LogFormer.writeLogFile(getName() + " cannot find plants for food.");
             energy -= 10; // Уменьшаем энергию при отсутствии растений
             return;
         }
@@ -114,7 +115,7 @@ public class Omnivore extends Animal {
         // Count the number of uneaten plants
         long countCanBeEaten = ecosystem.getPlants().stream().filter(plant -> !plant.isEaten()).count();
         if(countCanBeEaten == 0) {
-            LogFormer.writeLogFile(getName() + " не может найти растения для питания.");
+            LogFormer.writeLogFile(getName() + " cannot find plants for food.");
             energy -= 10; // Уменьшаем энергию при отсутствии растений
             return;
         }
@@ -128,7 +129,7 @@ public class Omnivore extends Animal {
         }
 
         // Log the plant being eaten and update its state
-        LogFormer.writeLogFile(getName() + " питается растением: " + ecosystem.getPlants().get(plantNumber).getName());
+        LogFormer.writeLogFile(getName() + " feeds on the plant " + ecosystem.getPlants().get(plantNumber).getName());
         ecosystem.getPlants().get(plantNumber).setEaten(true);
         energy += 50;
     }

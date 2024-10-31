@@ -7,12 +7,13 @@ import java.util.*;
 public class ObjectsCreator {
 
     /**
-     * Creates an Animal based on user input.
+     * Creates an Animals based on user input.
      *
      * @param scanner Scanner object for user input.
-     * @return An instance of Animal or null if invalid input.
+     * @return A list of created animals.
      */
-    public static Animal createAnimal(Scanner scanner) {
+    public static List<Animal> createAnimal(Scanner scanner) {
+        List<Animal> createdAnimals = new ArrayList<>();
         Set<String> validSpecies = new HashSet<>(Arrays.asList("herbivore", "carnivore", "omnivore"));
         Map<String, Integer> foodChainLevels = Map.of(
                 "primary", 1,
@@ -32,38 +33,49 @@ public class ObjectsCreator {
 
         int energy = UserInput.getValidIntInput("Enter energy (value from 0 to 180): ", 0, 180);
 
-        int lifetime = UserInput.getValidIntInput("Enter lifetime (number of years, from 1 to 100): ", 1, 100);
+        int lifetime = UserInput.getValidIntInput("Enter lifetime (number of hours from 1 to 1000000): ", 1, 1000000);
 
-        int currentLifeTime = UserInput.getValidIntInput("Enter current lifetime (number of years, from 1 to 100): ", 1, 100);
+        int currentLifeTime = UserInput.getValidIntInput("Enter current lifetime (number of hours from 1 to 1000000): ", 1, 1000000);
+
+        int quantity = UserInput.getValidIntInput("Enter amount of animals to create (number from 1 to 1000): ",1, 1000 );
 
         // Create and return the appropriate animal instance
-        return switch(species.toLowerCase()){
-            case "herbivore" -> new Herbivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
-            case "carnivore" -> new Carnivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
-            case "omnivore" -> new Omnivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
-            default -> null; // This should never occur due to prior validation
-        };
-
+        for (int i = 0; i < quantity; i++){
+            Animal animal = switch(species.toLowerCase()){
+                case "herbivore" -> new Herbivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
+                case "carnivore" -> new Carnivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
+                case "omnivore" -> new Omnivore(name, energy, foodChainLevel, lifetime, currentLifeTime);
+                default -> null; // This should never occur due to prior validation
+            };
+            createdAnimals.add(animal);
+        }
+        return createdAnimals;
     }
 
     /**
-     * Method to create a Plant based on user input.
+     * Method to create a Plants based on user input.
      *
      * @param scanner Scanner object for user input.
-     * @return An instance of Plant.
+     * @return A list of created plants.
      */
-    public static Plant createPlant(Scanner scanner) {
+    public static List<Plant> createPlant(Scanner scanner) {
+        List<Plant> createdPlants = new ArrayList<>();
 
         System.out.println("Enter the name of the plant: ");
         String name = scanner.next();
 
         int growthLevel = UserInput.getValidIntInput("Enter growth level (number from 0 to 18):", 0, 18);
 
-        int waterNeeds = UserInput.getValidIntInput("Enter the amount of water needed for growth (number from 0 to 15):", 0, 15);
+        int waterNeeds = UserInput.getValidIntInput("Enter the amount of water needed for growth (number from 0 to 18):", 0, 18);
 
         int optimalTemperature = UserInput.getValidIntInput("Enter optimal temperature (number from -30 to 38):", -30, 38);
 
-        return new Plant(name, growthLevel, waterNeeds, optimalTemperature);
+        int quantity = UserInput.getValidIntInput("Enter amount of plants to create: ", 1, 1000);
+
+        for (int i = 0; i < quantity; i++){
+            createdPlants.add(new Plant(name, growthLevel, waterNeeds, optimalTemperature));
+        }
+        return createdPlants;
     }
 
     /**
@@ -92,15 +104,16 @@ public class ObjectsCreator {
             System.out.println("1. Add an animal");
             System.out.println("2. Add a plant");
             System.out.println("3. Complete ecosystem creation");
+            System.out.print("Please enter your choice: ");
             String choice = scanner.next();
             switch (choice){
                 case "1":
                     // Add a new animal based on user input
-                    animals.add(createAnimal(scanner));
+                    animals.addAll(createAnimal(scanner));
                     break;
                 case "2":
                     // Add a new plant based on user input
-                    plants.add(createPlant(scanner));
+                    plants.addAll(createPlant(scanner));
                     break;
                 case "3": return new Ecosystem(temperature, humidity, waterAmount, animals, plants);
                 default:

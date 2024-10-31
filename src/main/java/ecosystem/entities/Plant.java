@@ -55,7 +55,7 @@ public class Plant {
     public void grow(Ecosystem ecosystem) {
         if(isEaten) return;
 
-        LogFormer.writeLogFile(name + " пытается расти...");
+        LogFormer.writeLogFile(name + " attempts to grow...");
 
         // Check if there is enough water available for growth
         if (ecosystem.getWaterAmount() >= waterNeeds) {
@@ -63,20 +63,20 @@ public class Plant {
                 // Favorable conditions - the plant grows faster
                 ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
                 growthLevel += 2;
-                LogFormer.writeLogFile(name + " растет быстрее из-за благоприятных условий");
+                LogFormer.writeLogFile(name + " grows faster due to favorable conditions.");
             } else if (Math.abs(ecosystem.getTemperature() - optimalTemperature) <= 10) {
                 // Conditions are not ideal, but the plant can still grow
                 ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
                 growthLevel += 1;
-                LogFormer.writeLogFile(name + " растет медленнее из-за температуры.");
+                LogFormer.writeLogFile(name + " grows slower due to temperature.");
             } else {
                 // Temperature is too unfavorable - the plant does not grow
                 ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
-                LogFormer.writeLogFile(name + " не растет из-за неблагоприятной температуры.");
+                LogFormer.writeLogFile(name + " does not grow due to unfavorable temperature.");
             }
         } else {
             growthLevel -= 1;
-            LogFormer.writeLogFile(name + " засыхает из-за нехватки воды.");
+            LogFormer.writeLogFile(name + "wilting due to lack of water.");
         }
 
     }
@@ -94,7 +94,7 @@ public class Plant {
             SecureRandom secureRandom = new SecureRandom();
             setEaten(true);
             List<Plant> newPlants = new ArrayList<>();
-            LogFormer.writeLogFile("Растение засыхает и оставляет семена");
+            LogFormer.writeLogFile("The plant wilts and leaves seeds.");
 
             // Generate a random number of new plants (1 to 3)
             for(int i = 0; i <= 1 + secureRandom.nextInt(3); i++){

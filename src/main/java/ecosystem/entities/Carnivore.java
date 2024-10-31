@@ -12,16 +12,16 @@ public class Carnivore extends Animal {
     public Carnivore(String name, int energy, int foodChainLevel, int lifeTime, int currentLifeTime) {
         super(name, energy, foodChainLevel, lifeTime, currentLifeTime);
         this.waterNeeds = switch (foodChainLevel){
-            case 1 -> 20;
-            case 2 -> 25;
-            case 3 -> 30;
+            case 1 -> 5;
+            case 2 -> 7;
+            case 3 -> 9;
             default -> 0; // This should never happen
         };
     }
 
     /**
      * Executes the animal's daily actions within the ecosystem, including aging, energy expenditure,
-     * and hunting if energy levels are low.
+     * search for water, and hunting if energy levels are low.
      *
      * @param ecosystem The ecosystem in which the animal acts, providing access to other animals
      *                  for potential hunting.
@@ -31,11 +31,12 @@ public class Carnivore extends Animal {
         setCurrentLifeTime(getCurrentLifeTime() + 24);
 
         if(ecosystem.getWaterAmount() < waterNeeds){
-            energy -= 30;
+            LogFormer.writeLogFile(getName() + " cannot find water.");
+            energy -= 5;
         }else ecosystem.setWaterAmount(ecosystem.getWaterAmount() - waterNeeds);
 
         if(energy < 100){
-            LogFormer.writeLogFile(getName() + " исследует территорию в поисках пищи.");
+            LogFormer.writeLogFile(getName() + " explores the area in search of food.");
             huntAnimals(ecosystem);
         }else energy -= 5;
     }
@@ -56,7 +57,7 @@ public class Carnivore extends Animal {
 
         // If no prey is available, log a message and reduce energy
         if (countCanBeHunted == 0) {
-            LogFormer.writeLogFile("Охота прошла неудачно (не на кого охотиться)");
+            LogFormer.writeLogFile("The hunt was unsuccessful (no prey available).");
             energy -= 20;
             return;
         }
@@ -74,16 +75,15 @@ public class Carnivore extends Animal {
         // Attempt to hunt the selected target, and log the result
         int energyGain = getEnergyGain(foodChainLevel);
         if (secureRandom.nextDouble() > 0.2) { // 80% success rate for hunting
-            LogFormer.writeLogFile(getName() + " успешно охотится на " + ecosystem.getAnimals().get(animalNumber).getName());
+            LogFormer.writeLogFile(getName() + " successfully hunts for " + ecosystem.getAnimals().get(animalNumber).getName());
             ecosystem.getAnimals().get(animalNumber).setEaten(true);
             energy += energyGain;
         } else {
-            LogFormer.writeLogFile("Охота прошла неудачно (цель охоты убежала)");
-            energy -= 20;
+            LogFormer.writeLogFile("The hunt was unsuccessful (the prey escaped).");
+            energy -= 10;
         }
 
     }
-
 
     /**
      * Attempts to reproduce a new animal of the same species within the ecosystem.
@@ -125,8 +125,8 @@ public class Carnivore extends Animal {
      */
     private double getReproduceChance(int foodChainLevel){
         return switch (foodChainLevel){
-            case 1 -> 0.8;
-            case 2 -> 0.85;
+            case 1 -> 0.85;
+            case 2 -> 0.9;
             case 3 -> 0.95;
             default -> 0; // No chance for invalid levels
         };

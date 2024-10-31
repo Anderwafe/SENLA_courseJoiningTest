@@ -1,5 +1,7 @@
 package ecosystem;
 
+import ecosystem.entities.Animal;
+import ecosystem.entities.Plant;
 import ecosystem.utils.*;
 
 
@@ -17,6 +19,7 @@ public class EcosystemSimulator {
             System.out.println("1. Create a new simulation");
             System.out.println("2. Load an existing simulation");
             System.out.println("3. Exit");
+            System.out.print("Please enter your choice: ");
             String choice = scanner.next();
             String filePath;
 
@@ -55,6 +58,7 @@ public class EcosystemSimulator {
             System.out.println("5. Predict ecosystem development");
             System.out.println("6. Clear log file");
             System.out.println("7. Exit");
+            System.out.print("Please enter your choice: ");
             String choice = scanner.next();
             switch (choice){
                 case "1":
@@ -142,7 +146,8 @@ public class EcosystemSimulator {
             System.out.println("6. Conduct an action cycle for animals");
             System.out.println("7. Conduct a growth cycle for plants");
             System.out.println("8. Start the simulation");
-            System.out.println("9. Return to the previous menu7");
+            System.out.println("9. Return to the previous menu");
+            System.out.print("Please enter your choice: ");
             String choice = scanner.next();
             switch(choice){
                 case "1":
@@ -158,10 +163,14 @@ public class EcosystemSimulator {
                             "Enter new available water amount (from 0 to 100000): ", 0, 100000));
                     break;
                 case "4":
-                    ecosystem.addAnimal(ObjectsCreator.createAnimal(scanner));
+                    List<Animal> createdAnimals = ecosystem.getAnimals();
+                    createdAnimals.addAll(ObjectsCreator.createAnimal(scanner));
+                    ecosystem.setAnimals(createdAnimals);
                     break;
                 case "5":
-                    ecosystem.addPlant(ObjectsCreator.createPlant(scanner));
+                    List<Plant> createdPlants = ecosystem.getPlants();
+                    createdPlants.addAll(ObjectsCreator.createPlant(scanner));
+                    ecosystem.setPlants(createdPlants);
                     break;
                 case "6":
                     simulation.removeOldAnimals(ecosystem);
