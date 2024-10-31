@@ -9,9 +9,9 @@ import java.util.List;
 
 public class Plant {
     private final String name;
-    private int growthLevel; // Текущий уровень роста растения
-    private final int waterNeeds;  // Необходимое количество воды для роста
-    private final int optimalTemperature; // Оптимальная температура для роста
+    private int growthLevel;
+    private final int waterNeeds;
+    private final int optimalTemperature;
     private boolean isEaten = false;
 
     public Plant(String name, int growthLevel, int waterNeeds, int optimalTemperature) {
