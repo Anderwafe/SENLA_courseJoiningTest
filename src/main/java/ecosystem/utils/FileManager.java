@@ -307,7 +307,6 @@ public class FileManager {
                 case "omnivore" -> animals.add(new Omnivore(name, energy, foodChainLevel, lifetime, age));
             }
         }
-        System.out.println(animals);
         return animals;
     }
 
