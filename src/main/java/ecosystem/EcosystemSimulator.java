@@ -160,7 +160,7 @@ public class EcosystemSimulator {
                     break;
                 case "3":
                     ecosystem.setWaterAmount(UserInput.getValidIntInput(
-                            "Enter new available water amount (from 0 to 100000): ", 0, 100000));
+                            "Enter new available water amount (from 0 to 1000000): ", 0, 1000000));
                     break;
                 case "4":
                     List<Animal> createdAnimals = ecosystem.getAnimals();
