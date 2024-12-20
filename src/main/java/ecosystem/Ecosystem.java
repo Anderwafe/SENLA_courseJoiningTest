@@ -3,7 +3,9 @@ package ecosystem;
 import ecosystem.entities.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Ecosystem {
     private final SecureRandom secureRandom = new SecureRandom();
@@ -61,6 +63,25 @@ public class Ecosystem {
 
     public void setWaterAmount(int waterAmount) {
         this.waterAmount = waterAmount;
+    }
+
+
+    public void sortAnimalsByAge(List<Animal> animals) {
+        this.animals = animals.stream()
+                .sorted(Comparator.comparingInt(Animal::getLifeTime))
+                .collect(Collectors.toList());
+    }
+
+    public void sortPlantsByWaterNeeds(List<Plant> plants) {
+        this.plants = plants.stream()
+                .sorted(Comparator.comparingInt(Plant::getWaterNeeds))
+                .collect(Collectors.toList());
+    }
+
+    public void sortPlantsByGrowthLevel(List<Plant> plants) {
+        this.plants = plants.stream()
+                .sorted(Comparator.comparingInt(Plant::getGrowthLevel))
+                .collect(Collectors.toList());
     }
 
     /**

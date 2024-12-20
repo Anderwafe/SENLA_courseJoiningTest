@@ -57,7 +57,8 @@ public class EcosystemSimulator {
             System.out.println("4. Load an existing ecosystem");
             System.out.println("5. Predict ecosystem development");
             System.out.println("6. Clear log file");
-            System.out.println("7. Exit");
+            System.out.println("7. Sort");
+            System.out.println("8. Exit");
             System.out.print("Please enter your choice: ");
             String choice = scanner.next();
             switch (choice){
@@ -121,7 +122,31 @@ public class EcosystemSimulator {
                     System.out.println("Log file cleared.");
                     break;
 
-                case "7": return; // Exit the application
+                case "7":
+                    while (true){
+                        System.out.println("1. Sort animals by age");
+                        System.out.println("2. Sort plants by water needs");
+                        System.out.println("3. Sort plants by growth level");
+                        System.out.println("4. Return to the previous menu");
+                        choice = scanner.next();
+                        if(choice.equals("4")) break;
+                        switch (choice) {
+                            case "1" -> {
+                                assert ecosystem != null;
+                                ecosystem.sortAnimalsByAge(ecosystem.getAnimals());
+                            }
+                            case "2" -> {
+                                assert ecosystem != null;
+                                ecosystem.sortPlantsByWaterNeeds(ecosystem.getPlants());
+                            }
+                            case "3" -> {
+                                assert ecosystem != null;
+                                ecosystem.sortPlantsByGrowthLevel(ecosystem.getPlants());
+                            }
+                        }
+                    }
+
+                case "8": return;
                 default: System.out.println("Please enter a valid option.");
             }
         }
