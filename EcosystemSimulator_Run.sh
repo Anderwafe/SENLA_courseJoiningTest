@@ -1,7 +1,9 @@
 #!/bin/bash
 
-SRC_DIR="src/main/java"
-OUTPUT_DIR="out"
+# SRC_DIR="src/main/java"
+SRC_DIR="."
+# OUTPUT_DIR="out"
+OUTPUT_DIR="."
 MAIN_CLASS="ecosystem.EcosystemSimulator"
 
 if [ ! -d "$OUTPUT_DIR" ]; then
@@ -9,7 +11,8 @@ if [ ! -d "$OUTPUT_DIR" ]; then
 fi
 
 echo "Compiling Java files..."
-find "$SRC_DIR" -name "*.java" -print | xargs javac -d "$OUTPUT_DIR" -sourcepath "$SRC_DIR"
+# find "$SRC_DIR" -name "*.java" -print | xargs javac -d "$OUTPUT_DIR" -sourcepath "$SRC_DIR"
+find "$SRC_DIR" -name "*.java" -print | xargs javac -sourcepath "$SRC_DIR"
 
 if [ $? -ne 0 ]; then
     echo "Compilation failed."
