@@ -1,3 +1,7 @@
 # Project exclude paths
 /target/
 deps/
+
+src/main/java/ecosystem/*.class
+src/main/java/ecosystem/entities/*.class
+src/main/java/ecosystem/utils/*.class
